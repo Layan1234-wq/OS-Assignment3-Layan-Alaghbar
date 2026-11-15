@@ -132,68 +132,81 @@
 
 ## Your Development Log
 
-### Entry 1 - [Date and Time]
-**What I did**:
+### Entry 1 - [Nov 5,2026]
+**What I did**:Started working on the assignment.
 
-**Details**:
+**Details**:* Created my own repository from the starter repository.
+* Changed the student ID in the code.
+* Read the instructions and looked through the Java file.
+* Ran the original code to see how it worked.
 
-**Challenges**:
+**Challenges**:At first, I was confused about why the CPUs could access the same process at the same time.
 
-**Solution**:
+**Solution**:I went back to the queue code and tried to understand how the problem happened.
 
-**Time spent**:
-
----
-
-### Entry 2 - [Date and Time]
-**What I did**:
-
-**Details**:
-
-**Challenges**:
-
-**Solution**:
-
-**Time spent**:
+**Time spent**:10min
 
 ---
 
-### Entry 3 - [Date and Time]
-**What I did**:
+### Entry 2 - [Nov 6,2026]
+**What I did**:Worked on Feature 1.
 
-**Details**:
+**Details**:* Added a ReentrantLock to the ReadyQueue class.
+* Used the lock when adding and taking processes from the queue.
+* Also protected the methods that read the queue and the map.
 
-**Challenges**:
+**Challenges**:I was not sure where exactly I needed to put the lock.
 
-**Solution**:
+**Solution**:I checked each method that uses the shared list and map and protected it with the lock.
 
-**Time spent**:
+**Time spent**:1 hour
 
 ---
 
-### Entry 4 - [Date and Time]
-**What I did**:
+### Entry 3 - [Nov 7,2026]
+**What I did**:Worked on Feature 2.
 
-**Details**:
+**Details**:* Added a ReentrantLock to the SharedStats class.
+* Protected the three shared values.
+* Added protection to the getter methods too.
 
-**Challenges**:
+**Challenges**:I did not realize at first that reading a shared variable could also cause a problem.
 
-**Solution**:
+**Solution**: I used one lock for the statistics and made sure to release it using finally.
 
-**Time spent**:
+**Time spent**:30 min
+
+---
+
+### Entry 4 - [Nov 8,2026]
+**What I did**:Worked on Feature 3.
+
+**Details**:* Added a Semaphore with an initial value of zero.
+* Used release() when a process is added to the queue.
+* Used acquire() before taking a process.
+* Added a way to wake up the CPUs when all processes are finished.
+
+**Challenges**:The hardest part was understanding how the CPUs should stop waiting when there are no more processes.
+
+**Solution**:I used wakeAllCPUs() to wake them up so they can finish running.
+
+**Time spent**:35 min
 
 ---
 
 ### Entry 5 - [Date and Time]
-**What I did**:
+**What I did**:Tested my code and checked the final changes.
 
-**Details**:
+**Details**:* Ran the program from the IDE.
+* Checked the final verification results.
+* Reviewed the code for any mistakes.
+* Fixed a duplicate @Override in the CpuWorker class.
 
-**Challenges**:
+**Challenges**:I wanted to make sure the CPUs would finish correctly without getting stuck.
 
-**Solution**:
+**Solution**:I reviewed the `run()` method and ran the program again.
 
-**Time spent**:
+**Time spent**:1 hour
 
 ---
 
@@ -214,13 +227,13 @@
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: [10hours]
 
-**Most challenging part**:
+**Most challenging part**:The semaphore was the most challenging part for me because I had to understand how CPUs wait when the ready queue is empty and how they stop when all processes are finished.
 
-**Most interesting learning**:
+**Most interesting learning**: I learned how locks and semaphores help multiple threads work together without causing problems in shared data.
 
-**What I would do differently next time**:
+**What I would do differently next time**:I would start testing each feature earlier and spend more time understanding the code before making changes.
 
 ---
 
@@ -238,9 +251,9 @@
 
 > 💡 **TIP:** Talk about race conditions (read-modify-write), critical sections, mutual exclusion with `ReentrantLock` and `try/finally`, the role of a counting semaphore, and what surprised you when the starter failed.
 
-**Your Answer:** *(5-7 sentences)*
+**Your Answer:** *
 
-[Write your answer here.]
+[learned that synchronization prevents threads from changing shared data at the same time. I used ReentrantLock to protect shared data. I also used Semaphore to make CPUs wait until a process is available.]
 
 ## Question 2: What was the most challenging part of this assignment?
 
@@ -248,7 +261,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[The most challenging part was Feature 3. I found it difficult to understand how the semaphore works when the queue is empty. I also needed to understand how CPUs should stop when all processes are finished. I used wakeAllCPUs() to wake up the waiting CPUs. After working on it, I understood the purpose of the semaphore better..]
 
 ## Question 3: How did you overcome the challenges you faced?
 
@@ -256,7 +269,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[I started by reading the assignment instructions carefully. Then, I checked the code to understand how the different parts work. I worked on each feature separately instead of changing everything at once. I also ran the program to check my changes. This helped me understand the problems and fix my mistakes.
 
 ## Question 4: Where can synchronization concepts be applied in real-world applications?
 
@@ -264,7 +277,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+[Synchronization is useful in applications where many users access the same data. For example, a banking system needs to protect account balances when transactions happen at the same time. Locks can prevent different threads from changing the same balance incorrectly. Semaphores can control access to shared resources like printers. These techniques help prevent errors and keep data consistent.]
 
 ### Optional: What would you like to learn more about?
 
