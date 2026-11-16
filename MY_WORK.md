@@ -36,7 +36,7 @@
 | **Student ID** | 446052621|
 | **University Email** |446052621@std.psau.edu.sa |
 | **GitHub Username** | Layan1234-wq |
-| **Repository Link** | OS-Assignment3-Layan-Alaghbar |
+| **Repository Link** | (https://github.com/Layan1234-wq/OS-Assignment3-Layan-Alaghbar) |
  
 ---
 
