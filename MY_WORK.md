@@ -32,11 +32,11 @@
 
 | Field | Your Answer |
 |-------|-------------|
-| **Full Name** | [layan wesam alaghbar] |
-| **Student ID** | [446052621] |
+| **Full Name** | layan wesam alaghbar|
+| **Student ID** | 446052621|
 | **University Email** |446052621@std.psau.edu.sa |
-| **GitHub Username** | [your-github-username] |
-| **Repository Link** | [Paste your repository link here] |
+| **GitHub Username** | Layan1234-wq |
+| **Repository Link** | OS-Assignment3-Layan-Alaghbar |
  
 ---
 
@@ -159,7 +159,7 @@
 
 **Solution**:I checked each method that uses the shared list and map and protected it with the lock.
 
-**Time spent**:1 hour
+**Time spent**:2 hours
 
 ---
 
@@ -174,7 +174,7 @@
 
 **Solution**: I used one lock for the statistics and made sure to release it using finally.
 
-**Time spent**:30 min
+**Time spent**:1 hour
 
 ---
 
@@ -190,7 +190,7 @@
 
 **Solution**:I used wakeAllCPUs() to wake them up so they can finish running.
 
-**Time spent**:35 min
+**Time spent**:1 hour
 
 ---
 
@@ -227,7 +227,7 @@
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [15 hours]
+**Total time spent on assignment**: [8 hours ]
 
 **Most challenging part**:The semaphore was the most challenging part for me because I had to understand how CPUs wait when the ready queue is empty and how they stop when all processes are finished.
 
@@ -269,7 +269,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[I started by reading the assignment instructions carefully. Then, I checked the code to understand how the different parts work. I worked on each feature separately instead of changing everything at once. I also ran the program to check my changes. This helped me understand the problems and fix my mistakes.
+[I started by reading the assignment instructions carefully. Then, I checked the code to understand how the different parts work. I worked on each feature separately instead of changing everything at once. I also ran the program to check my changes. This helped me understand the problems and fix my mistakes.]
 
 ## Question 4: Where can synchronization concepts be applied in real-world applications?
 
@@ -364,7 +364,7 @@ Busy-waiting polls (must be 0)         expected 0        observed 0        ✔�
 
 **Your Answer:** *(3-5 sentences)*
 
-[In the original starter, CPUs used busy waiting by repeatedly checking the ready queue when it was empty, wasting CPU time. My original output showed 713 busy-waiting polls. In my final code, the semaphore starts at 0 because the queue is initially empty, and each permit represents one available process. After the initial numProcesses calls to add(), its value equals numProcesses. When the queue is empty, CPUs block in acquire(), and the last CPU calls release(totalCPUs) to wake them so they can finish..]
+[In the original starter, CPUs used busy waiting by repeatedly checking the ready queue when it was empty, wasting CPU time. My original output showed 713 busy-waiting polls. In my final code, the semaphore starts at 0 because the queue is initially empty, and each permit represents one available process. After the initial numProcesses calls to add(), its value equals numProcesses. When the queue is empty, CPUs block in acquire(), and the last CPU calls release(totalCPUs) to wake them so they can finish.]
 
 ## Question 4: Classical Problems and Deadlock
 
