@@ -346,16 +346,18 @@ Busy-waiting polls (must be 0)         expected 0        observed 0        âœ”ï¸
 
 **Your Answer:** *(3-5 sentences)*
 
-[I used queueLock in ReadyQueue to protect the shared process list and map, and statsLock in SharedStats to protect the three statistics. I chose one lock for all three statistics because it is simpler, but updates to different counters must wait for each other. The ready queue has a separate lock because it is a different shared resource. These locks provide mutual exclusion, and threads can make progress when the lock is released, but the default ReentrantLock is not fair, so bounded waiting is not guaranteed.]
-
+I used one ReentrantLock called lock in ReadyQueue to protect the shared process list and map. I used another ReentrantLock called statsLock in SharedStats to protect the three statistics and their getters. I chose one lock for all three statistics because it is simpler, but updates to different counters must wait for each other. The ready queue has a separate lock because it protects a different shared resource. These locks provide mutual exclusion, and threads can make progress when locks are released, but the default ReentrantLock is not fair, so bounded waiting is not guaranteed.
 | Critical section (variable / method) | Lock used | Why it needs protection |
 |---|---|---|
-| Process list and map | `queueLock` | Protects shared queue data |
-| `add()` | `queueLock` | Protects adding processes |
-| `take()` | `queueLock` | Protects removing processes |
-| `processOf()` | `queueLock` | Protects accessing the process map |
-| `snapshot()` | `queueLock` | Protects reading the queue |
-| Three statistics and their getters | `statsLock` | Protects shared statistics |
+| `list` and `map` | `lock` | Protects shared queue data |
+| `add()` | `lock` | Protects adding processes |
+| `take()` | `lock` | Protects removing processes |
+| `processOf()` | `lock` | Protects accessing the process map |
+| `snapshot()` | `lock` | Protects reading the queue |
+| `contextSwitchCount` | `statsLock` | Protects the shared counter |
+| `completedProcessCount` | `statsLock` | Protects the shared counter |
+| `totalServiceTime` | `statsLock` | Protects the shared accumulator |
+| Three getter methods | `statsLock` | Protects reading shared statistics |
 ## Question 3: Busy Waiting vs Semaphore
 
 **Question**: Describe the **busy waiting** of the starter and its cost (give the `Busy-waiting polls` number from your **starter** run). What does the **value of your semaphore** represent? What is its **initial value** and why? What is its value right after the `numProcesses` initial `add()` calls? Why does the last CPU call `release(totalCPUs)` at the end, and what would happen if it did not?
@@ -373,9 +375,9 @@ Busy-waiting polls (must be 0)         expected 0        observed 0        âœ”ï¸
 > ðŸ’¡ **TIP:** Recall the bounded-buffer solution of the slides (`empty`, `full`, `mutex`) and the order of `wait()` calls in the producer and the consumer. For the deadlock, think about a producer that holds the mutex while waiting for a free slot that only a consumer (who needs the mutex) can create.
 
 **Your Answer:** *(3-5 sentences)*
-This assignment is related to the Producer-Consumer problem. The code that adds processes acts as the producer, while the CPU workers act as consumers. CPUs can also act as producers when they re-enqueue unfinished processes. For a bounded queue with capacity K, the three semaphores are empty = K, full = 0, and mutex = 1. Waiting on the semaphore before acquiring the mutex prevents deadlock by breaking the hold-and-wait condition.
+This assignment is related to the Producer-Consumer problem. The main thread acts as a producer when it adds processes to the ready queue. CPU workers act as consumers because they take processes from the queue and execute them. If a process is not finished, the CPU worker adds it back to the queue. The counting semaphore controls access to available processes and prevents CPUs from busy waiting.
 **Classical problem and roles**:
-[Producer-Consumer problem. The process-adder is the producer, and the CPUs are consumers. CPUs can also act as producers when they re-enqueue unfinished processes.]
+The Producer-Consumer problem involves producers adding items to a shared queue and consumers removing them. In my assignment, the main thread acts as the producer when it initially adds processes to the ready queue. CPU workers act as consumers when they take processes and execute them. CPU workers can also act as producers when they add unfinished processes back to the queue.
 
 **Semaphores for a bounded queue (name and initial value)**:
 [empty = K
